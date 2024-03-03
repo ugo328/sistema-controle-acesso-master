@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cadastro</title>
+</head>
+<body>
+    <div class="nav navbar align-items-center justify-content-between bg-dark" style="height:4rem">
+        <h4 class="m-0 text-light">Editar cadastro</h4>
+        <h4 class="m-0 text-white"><i class="fas fa-walking mr-2" style="font-size:28px"></i></h4>
+    </div>
+    <div class="d-flex align-items-center justify-content-center px-1" style="min-height: 91vh">
+        <div class="py-4 px-3 card" style="width:30rem">
+            <form action="/update_visitor" method="post">
+                <input type="hidden" name="id_visitante" value="<?php echo isset($_POST['id_visitante']) ? $_POST['id_visitante'] : ''; ?>">
+                <div class="label-float mt-4">    
+                    <input type="text" name="nome" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?php echo isset($_POST['nome']) ? $_POST['nome'] : ''; ?>" required>
+                    <label for="nome">Nome</label> <!-- Adicionado rótulo para acessibilidade -->
+                </div>
+                <div class="label-float mt-4">
+                    <input type="text" name="bloco" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Bloco" value="<?php echo isset($_POST['bloco']) ? $_POST['bloco'] : ''; ?>" required>
+                    <label for="bloco">Bloco</label> <!-- Adicionado rótulo para acessibilidade -->
+                </div>
+                <div class="label-float mt-4">
+                    <input type="text" name="apartamento" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Apartamento" value="<?php echo isset($_POST['apartamento']) ? $_POST['apartamento'] : ''; ?>" required>
+                    <label for="apartamento">Apartamento</label> <!-- Adicionado rótulo para acessibilidade -->
+                </div>
+                <?php if(isset($_POST['uf']) && $_POST['uf'] ==  '--'){?>
+                    <div class="label-float mt-4" id="input-cpf-cadastro">
+                        <input type="text" id="cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" value="<?php echo isset($_POST['cpf']) ? $_POST['cpf'] : ''; ?>" required aria-describedby="invalid">
+                        <label for="cpf">CPF</label> <!-- Adicionado rótulo para acessibilidade -->
+                        <div class="invalid-feedback" id="invalid">
+                            CPF inválido!
+                        </div>
+                    </div>
+                    <input type="hidden" name="rg">
+                <?php } else {?>
+                    <label id="label-uf-registro" class="mt-4 mb-0 text-secondary">UF</label>
+                    <select id="select-uf-registro" name="uf" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
+                        <option value="<?php echo isset($_POST['uf']) ? $_POST['uf'] : ''; ?>"><?php echo isset($_POST['uf']) ? $_POST['uf'] : ''; ?></option>
+                        <!-- Opções de UF omitidas por brevidade -->
+                    </select>
+                    <div class="label-float mt-4" id="input-rg-registro">
+                        <input type="text" id="rg-edit" name="rg" class="form-custom form-control mt-2" maxlength="14" size="60" placeholder="RG" value="<?php echo isset($_POST['rg']) ? $_POST['rg'] : ''; ?>" required>
+                        <label for="rg">RG</label> <!-- Adicionado rótulo para acessibilidade -->
+                    </div>
+                    <input type="hidden" name="cpf">
+                <?php }?>
+                <div class="label-float mt-4">
+                    <textarea name="observacao" class="form-custom form-control mt-2" rows="3" placeholder="Observação"></textarea>
+                    <label>Observação</label>
+                </div>
+                <button type="submit" class="btn btn-register text-white w-100 mt-5">Atualizar</button>   
+                <a href="/visitors" class="btn btn-danger text-white w-100 mt-2">Cancelar</a> <!-- Adicionado botão de cancelar -->
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,289 @@
+/* Conteúdo das páginas usuário e administrador */
+.content{
+    background-color: #F5F9FC;
+    min-height: 90vh;
+    margin-top: 10vh;
+}
+.content-adm{
+    background-color: #F5F9FC;
+    width: 80%;
+    min-height: 90vh;
+    margin-top: 10vh;
+    margin-left: 20%;
+    overflow-x: hidden;
+    transition: all .4s;
+}
+@media(min-height:920px){
+    .content{
+        height:94vh;
+        margin-top: 6vh;
+    }
+    .content-adm{
+        height:94vh;
+        margin-top: 6vh;
+    }
+    .menu-secret-adm{
+        top:6vh !important;
+    }
+    .logo{
+        line-height: 6vh !important;
+    }
+    .subtitle-menu-adm{
+        line-height: 4vh !important;
+    }
+}
+@media(max-width:1200px){
+    .content-adm{
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+    .menu-adm{
+        left: -100%;
+    }
+}
+@media(min-width:1200px){
+    .menu-secret-adm{
+        left: -18rem;
+    }
+}
+@media(max-width:769px){
+    .menu-user{
+        position: absolute !important;
+    }
+}
+/* Menu lateral */
+.menu-user{
+    z-index: 998;
+    transition: .4s;
+    position: fixed;
+}
+/* Menu lateral Administrador */
+.menu-adm{
+    height:100%;
+    top:0;
+    width: 20%;
+    position:fixed;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    background-color:#242939;
+    z-index: 998;
+    transition: 0.4s !important;
+}
+.menu-secret-adm{
+    height:100%;
+    top:10vh;
+    width:18rem;
+    position:fixed;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    background-color:#242939;
+    z-index: 998;
+    transition: 0.4s !important;
+}
+.logo{
+    line-height: 10vh;
+    margin: 0;
+}
+.subtitle-menu-adm{
+    line-height: 6vh;
+}
+.menu-secret-adm>nav>ul>a, .menu-adm>nav>ul>a{
+    color: #DCDCDC; 
+}
+ul>a:hover{
+    background-color:#1f2433;
+}
+ul>a.active{
+    background-color: #20B2AA;
+    color: #ffffff;
+}
+ul>a>div>.icon{
+    width: 40px;
+    font-size:18pt;
+}
+ul>a>span{
+    font-size:11pt;
+}
+/* Botão de Exportação dos dados da tabela */
+.breadcrumb>.dropdown-menu>h6{
+    padding: 10px 20px !important;
+    color: #20B2AA;
+}
+.btn-exports{
+    box-shadow: 0px 0px 0px !important;
+}
+.btn-exports:hover{
+    background-color: rgb(69, 76, 83) !important;
+}
+.fa-ellipsis-v{
+    font-size: 18px;
+}
+.fa-file-excel{
+    font-size: 16px !important;
+}
+/* Botões de cadastro e registro de saída*/
+.add-exit{
+    padding: 0 0.94rem;
+}
+.add-exit>.add{
+    border-radius: 3px 0px 0px 0px !important;
+}
+.add-exit>.exit{
+    border-radius: 0px 3px 0px 0px !important;
+}
+@media(max-width:767px){
+    .add-exit>.add{
+        border-radius: 4px 4px 0px 0px !important;
+    }
+    .add-exit>.exit{
+        border-radius: 0px !important;
+    }
+}
+.add{
+    background-color: #20B2AA;
+    color: #FFFFFF;
+    transition: 0.2s;
+    cursor: pointer;
+}
+.add:hover{
+    background-color: rgb(28, 145, 139);
+}
+.exit{
+    background-color: #FFC107;
+    color: #FFFFFF;
+    transition: 0.2s;
+    cursor: pointer; 
+}
+.exit:hover{
+    background-color: rgb(226, 171, 4);
+}
+.badge-pill{
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+.badge-danger{
+    line-height: 25px;
+    width: 25px;
+    border-radius: 100% !important;
+    text-align: center !important;
+    padding: 0 !important;
+    font-size: 75% !important;
+}
+/* Botões de edição e exclusão dos registros */
+.btn-action{
+    text-align: center;
+    width: 45px;
+    padding: 10px;
+}
+/* Janelas modal */
+.modal-header button:focus{
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+}
+/* Recursos datatable */
+label{
+    margin: 15px 0;
+}
+/* Selecionado registros por página */
+select.custom-select{
+    background-color: rgb(238, 240, 240);
+    border: 0px !important;
+    border-radius: 5px;
+    margin: 0 0 0 10px; 
+    cursor: pointer;
+}
+/* Barra de pesquisa */
+input[type="search"]{
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da !important;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: 50px;
+}
+/* Tabela */
+table.dataTable{
+    border: 1px solid rgb(202, 202, 202) !important;
+}
+/* Cabeçalho da tabela */
+table.dataTable thead th, table.dataTable thead td {
+    background-color: rgb(238, 238, 238);
+    border-bottom: 1px solid rgb(192, 192, 192) !important;
+    padding: 20px !important;
+    text-align: center !important;
+}
+/* Ícone de visualização (+) */
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th.dtr-control:before {
+    left: 8px;
+    height: 18px;
+    width: 18px;
+    border: 0px !important;
+    border-radius: 18px;
+    font-weight: 900;
+    line-height: 18px;
+    background-color: #20B2AA;
+}
+/* Páginação */
+.dataTables_info, .dataTables_paginate{
+    margin: 10px 0px !important;
+    padding-top: 0px !important;
+    line-height: 38px !important;
+}
+.page-item.active .page-link{
+    background-color: #20B2AA!important;
+    border: 1px solid #20B2AA;  
+    color: #FFFFFF !important;
+}
+.page-link{
+    color: #5a5a5a !important;
+}
+/* Campos da tabela */
+.table td, .odd th {
+    min-width:150px;
+}
+/* Espaçamento interno dos campos da tabela */
+.table td, .table th{
+    padding: 0;
+}
+table.dataTable thead th{ 
+    padding: 10px 7px 20px;
+}
+table tr th::after,tr th::before{
+    opacity: 0!important
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    padding: 0!important;
+    border: 0!important;
+}
+tbody td{
+    padding: 15px 5px!important;
+    vertical-align: middle!important;
+}
+tbody th{
+    vertical-align: middle!important;
+}
+.tabelas{
+    margin-top:20px;
+    text-decoration-color: none!important;
+    background-color: #343a40;
+    color:white;
+    transition: .5s;
+}
+.tabelas:hover{
+    background-color: white;
+    color:#343a40;
+}
+.content-user{
+    margin-top: 10vh;
+}
+.table-events{
+    margin-top: 10vh;
+}
+.mt-10vh{
+    margin-top: 10vh;
+}

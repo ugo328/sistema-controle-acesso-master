@@ -1,0 +1,345 @@
+<header id="header" class="header-adm d-flex align-items-center justify-content-between">
+    <div class="d-xl-block d-none button ml-3 text-center" onclick="sidebarAdm()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="d-xl-none d-block button ml-3 text-center" onclick="sidebarSecretAdm()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <button class="btn btn-light btn-user border-0 mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="text-dark">
+            Olá,
+        </span>
+        <span class="text-secondary mr-1">
+            <?= $_SESSION['nome'] ?>
+        </span>
+        <img width="35" height="35" src="img/users/<?= $_SESSION['imagem_usuario'] ?>">
+    </button>
+    <div class="dropdown-menu drop" aria-labelledby="dropdownMenuButton">
+        <a href="/my_profile">
+            <i class="fas fa-user-alt"></i>
+            <span class="ml-2">
+                Meu Perfil
+            </span>
+        </a>
+        <hr class="m-0">
+        <a href="/sign_out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="ml-2">
+                Sair
+            </span>
+        </a>
+    </div>
+</header>
+<aside id="menu-adm" class="menu-adm" style="margin-left:0px">
+    <h4 class="pl-3 text-white logo">Access</h4>
+    <small class="pl-3 text-white subtitle-menu-adm">Menu</small>
+    <nav>
+        <ul class="menu-list">
+            <a class="d-flex justify-content-between align-items-center p-3 active" href="/dashboard">
+                <div>
+                    <i class="fas fa-chart-line icon"></i>
+                    <span>Dashboard</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/residents">
+                <div>
+                    <i class="fas fa-building icon"></i>
+                    <span>Moradores</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/visitors">
+                <div>
+                    <i class="fas fa-walking icon"></i>
+                    <span>Visitantes</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/service_providers">
+                <div>    
+                    <i class="fas fa-toolbox icon"></i>
+                    <span>Prestadores de serviços</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/orders">
+                <div>    
+                    <i class="fas fa-dolly icon"></i>
+                    <span>Encomendas</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/leisure_areas">
+                <div>    
+                    <i class="fas fa-gamepad icon"></i>
+                    <span>Áreas de lazer</span>
+                </div>
+            </a>
+        </ul>
+    </nav>
+</aside>
+<aside id="menu-secret-adm" class="menu-secret-adm" style="margin-left:-18rem">
+    <h4 class="pl-3 text-white logo">Access</h4>
+    <small class="pl-3 text-white subtitle-menu-adm">Menu</small>
+    <nav>
+        <ul class="menu-list">
+            <a class="d-flex justify-content-between align-items-center p-3 active" href="/dashboard">
+                <div>
+                    <i class="fas fa-chart-line icon"></i>
+                    <span>Dashboard</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/residents">
+                <div>    
+                    <i class="fas fa-building icon"></i>
+                    <span>Moradores</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/visitors">
+                <div>
+                    <i class="fas fa-walking icon"></i>
+                    <span>Visitantes</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/service_providers">
+                <div>
+                    <i class="fas fa-toolbox icon"></i>
+                    <span>Prestadores de serviços</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/orders">
+                <div> 
+                    <i class="fas fa-dolly icon"></i>
+                    <span>Encomendas</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/leisure_areas">
+                <div>
+                    <i class="fas fa-gamepad icon"></i>
+                    <span>Áreas de lazer</span>
+                </div>
+            </a>
+        </ul>
+    </nav>
+</aside>
+<section class="content-adm p-1" id="content">
+    <div class="row m-auto">
+        <!-- Gráfico anual -->  
+        <div class="col-lg-9 col-md-8 p-0">
+            <div class="card m-3 shadow">
+                <div class="d-flex flex-row align-items-center justify-content-between p-3">
+                    <h6 class="m-0 text-dark">Status de entrada geral</h6>
+                    <span class="badge badge-info">Por ano</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="myChartByYear" style="height:420px;"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- Gráfico mensal -->
+        <div class="col-lg-3 col-md-4 p-0">
+            <div class="card m-3 shadow">
+                <div class="d-flex flex-row align-items-center justify-content-between p-3">
+                    <h6 class="m-0 text-dark">Status</h6>
+                    <span class="badge badge-info">Por mês</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="myMonthChart" style="height:420px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-auto">
+        <div class="col-md-4 p-0">
+            <div class="card m-3 shadow">
+                <div class="no-gutters align-items-center">
+                    <div class="d-flex flex-row align-items-center justify-content-between rounded-top p-2 border-bottom">
+                        <h6 class="text-dark">Visitantes</h6>
+                        <h6 class="badge badge-info">Hoje</h6>
+                    </div>
+                    <div class="d-flex flex-row align-items-center justify-content-between p-3">
+                        <i class="fas fa-walking btn text-secondary icon-card"></i>
+                        <h1 class="text-secondary"><?=$this->view->total_visitantes_por_dia?></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 p-0">
+            <div class="card m-3 shadow">
+                <div class="no-gutters align-items-center">
+                    <div class="d-flex flex-row align-items-center justify-content-between rounded-top p-2 border-bottom">
+                        <h6 class="text-dark d-none d-lg-inline-block">Prestadores de Serviços</h6>
+                        <h6 class="text-dark d-lg-none d-inline-block">Prestadores S.</h6>
+                        <h6 class="badge badge-info">Hoje</h6>
+                    </div>
+                    <div class="d-flex flex-row align-items-center justify-content-between p-3">
+                        <i class="fas fa-toolbox btn text-secondary icon-card"></i>
+                        <h1 class="text-secondary"><?=$this->view->total_prestadores_servicos_por_dia?></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 p-0">
+            <div class="card m-3 shadow">
+                <div class="no-gutters align-items-center">
+                    <div
+                        class="d-flex flex-row align-items-center justify-content-between rounded-top p-2 border-bottom">
+                        <h6 class="text-dark">Encomendas</h6>
+                        <h6 class="badge badge-info">Hoje</h6>
+                    </div>
+                    <div class="d-flex flex-row align-items-center justify-content-between p-3">
+                        <i class="fas fa-dolly btn text-secondary icon-card"></i>
+                        <h1 class="text-secondary"><?=$this->view->total_encomendas_por_dia?></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="lib/chart.js/chart.js"></script>
+<script>
+    /*Gráfico anual*/
+    let myChartByYear = document.getElementById('myChartByYear');
+    let chartByYear = new Chart(myChartByYear, {
+    
+        type: 'line',
+
+        data: {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            datasets: [
+                {
+                    label: 'Visitantes',
+                    pointBackgroundColor:'#4e73df',
+                    pointBorderColor:'#FFF',
+                    pointHitRadius:40,
+                    borderColor:'#4e73df',
+                    backgroundColor: 'rgba(93, 120, 255,0.0)',
+                    data: [
+                        <?=$this->view->total_visitantes_por_ano[0]?>,
+                        <?=$this->view->total_visitantes_por_ano[1]?>,
+                        <?=$this->view->total_visitantes_por_ano[2]?>,
+                        <?=$this->view->total_visitantes_por_ano[3]?>,
+                        <?=$this->view->total_visitantes_por_ano[4]?>,
+                        <?=$this->view->total_visitantes_por_ano[5]?>,
+                        <?=$this->view->total_visitantes_por_ano[6]?>,
+                        <?=$this->view->total_visitantes_por_ano[7]?>,
+                        <?=$this->view->total_visitantes_por_ano[8]?>,
+                        <?=$this->view->total_visitantes_por_ano[9]?>,
+                        <?=$this->view->total_visitantes_por_ano[10]?>,
+                        <?=$this->view->total_visitantes_por_ano[11]?>
+                    ]
+                },
+                {
+                    label: 'Prestadores de Serviços',
+                    pointBackgroundColor:'#36b9cc',
+                    pointBorderColor:'#FFF',
+                    pointHitRadius:40,
+                    borderColor:'#36b9cc',
+                    backgroundColor: 'rgba(93, 120, 255,0.0)',
+                    data: [
+                        <?=$this->view->total_prestadores_servicos_por_ano[0]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[1]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[2]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[3]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[4]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[5]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[6]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[7]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[8]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[9]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[10]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[11]?>
+                    ]
+                },
+                {
+                    label: 'Encomendas',
+                    pointBackgroundColor:'#20c9a6',
+                    pointBorderColor:'#FFF',
+                    pointHitRadius:40,
+                    borderColor:'#20c9a6',
+                    backgroundColor: 'rgba(93, 120, 255,0.0)',
+                    data: [ 
+                        <?=$this->view->total_encomendas_por_ano[0]?>, 
+                        <?=$this->view->total_encomendas_por_ano[1]?>, 
+                        <?=$this->view->total_encomendas_por_ano[2]?>, 
+                        <?=$this->view->total_encomendas_por_ano[3]?>,
+                        <?=$this->view->total_encomendas_por_ano[4]?>,
+                        <?=$this->view->total_encomendas_por_ano[5]?>,
+                        <?=$this->view->total_encomendas_por_ano[6]?>,
+                        <?=$this->view->total_encomendas_por_ano[7]?>,
+                        <?=$this->view->total_encomendas_por_ano[8]?>,
+                        <?=$this->view->total_encomendas_por_ano[9]?>,
+                        <?=$this->view->total_encomendas_por_ano[10]?>,
+                        <?=$this->view->total_encomendas_por_ano[11]?>
+                    ]
+                }
+            ]
+        },
+
+        options: {
+            maintainAspectRatio:false,
+            legend: {
+                display: true, 
+                position:'bottom',
+                align: 'start',
+                labels: {
+                    boxWidth: 12,
+                    fontSize: 16,
+                    padding: 40,	
+                },
+            },
+        }
+    });
+    
+    /*Gráfico mensal*/
+    let myMonthChart = document.getElementById('myMonthChart').getContext('2d');
+    let monthChart = new Chart(myMonthChart, {
+    
+        type: 'doughnut',
+    
+        data: {
+            labels: ['Visitantes','Prestadores s.', 'Encomendas'],	
+            datasets: [
+                {
+                    label: 'Registro de entrada por mês',
+                    backgroundColor: ['#4e73df', '#36b9cc','#20c9a6'],
+                    data: [
+                        <?=$this->view->total_visitantes_por_mes?>, 
+                        <?=$this->view->total_prestadores_servicos_por_mes?>, 
+                        <?=$this->view->total_encomendas_por_mes?>
+                    ]
+                }
+            ]	
+        },
+        
+        options: {
+            maintainAspectRatio:false,	
+            cutoutPercentage: '80', 
+        
+            layout: {
+                padding: {
+                    left: 38,
+                    right: 38,
+                    bottom: 10,
+                },
+            },  
+            legend: {
+                display: true, 
+                position:'bottom',
+                align: 'start',
+                labels: {
+                    boxWidth: 12,
+                    fontSize: 16,	
+                },
+            },
+        }
+    });
+</script>
+
+<div class="copyright">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <p>© 2022 All Rights Reserved. Design by Ugo Ventura</p>
+         </div>
+      </div>
+   </div>
+</div>
+

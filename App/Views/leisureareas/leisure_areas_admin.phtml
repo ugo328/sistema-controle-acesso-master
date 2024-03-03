@@ -1,0 +1,175 @@
+<header id="header" class="header-adm d-flex align-items-center justify-content-between">
+    <div class="d-xl-block d-none button ml-3 text-center" onclick="sidebarAdm()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="d-xl-none d-block button ml-3 text-center" onclick="sidebarSecretAdm()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <button class="btn btn-light btn-user border-0 mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="text-dark">
+            Olá,
+        </span>
+        <span class="text-secondary mr-1">
+            <?= $_SESSION['nome'] ?>
+        </span>
+        <img width="35" height="35" src="img/users/<?= $_SESSION['imagem_usuario'] ?>">
+    </button>
+    <div class="dropdown-menu drop" aria-labelledby="dropdownMenuButton">
+        <a href="/my_profile">
+            <i class="fas fa-user-alt"></i>
+            <span class="ml-2">
+                Meu Perfil
+            </span>
+        </a>
+        <hr class="m-0">
+        <a href="/sign_out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="ml-2">
+                Sair
+            </span>
+        </a>
+    </div>
+</header>
+<aside id="menu-adm" class="menu-adm" style="margin-left:0px">
+    <h4 class="pl-3 text-white logo">Access</h4>
+    <small class="pl-3 text-white subtitle-menu-adm">Menu</small>
+    <nav>
+        <ul class="menu-list">
+            <a class="d-flex justify-content-between align-items-center p-3" href="/dashboard">
+                <div>
+                    <i class="fas fa-chart-line icon"></i>
+                    <span>Dashboard</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/residents">
+                <div>
+                    <i class="fas fa-building icon"></i>
+                    <span>Moradores</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/visitors">
+                <div>
+                    <i class="fas fa-walking icon"></i>
+                    <span>Visitantes</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/service_providers">
+                <div>    
+                    <i class="fas fa-toolbox icon"></i>
+                    <span>Prestadores de serviços</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/orders">
+                <div>    
+                    <i class="fas fa-dolly icon"></i>
+                    <span>Encomendas</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3 active" href="/leisure_areas">
+                <div>    
+                    <i class="fas fa-gamepad icon"></i>
+                    <span>Áreas de lazer</span>
+                </div>
+            </a>
+        </ul>
+    </nav>
+</aside>
+<aside id="menu-secret-adm" class="menu-secret-adm" style="margin-left:-18rem">
+    <h4 class="pl-3 text-white logo">Access</h4>
+    <small class="pl-3 text-white subtitle-menu-adm">Menu</small>
+    <nav>
+        <ul class="menu-list">
+            <a class="d-flex justify-content-between align-items-center p-3" href="/dashboard">
+                <div>
+                    <i class="fas fa-chart-line icon"></i>
+                    <span>Dashboard</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/residents">
+                <div>    
+                    <i class="fas fa-building icon"></i>
+                    <span>Moradores</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/visitors">
+                <div>
+                    <i class="fas fa-walking icon"></i>
+                    <span>Visitantes</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/service_providers">
+                <div>
+                    <i class="fas fa-toolbox icon"></i>
+                    <span>Prestadores de serviços</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/orders">
+                <div> 
+                    <i class="fas fa-dolly icon"></i>
+                    <span>Encomendas</span>
+                </div>
+            </a>
+            <a class="d-flex justify-content-between align-items-center p-3 active" href="/leisure_areas">
+                <div>
+                    <i class="fas fa-gamepad icon"></i>
+                    <span>Áreas de lazer</span>
+                </div>
+            </a>
+        </ul>
+    </nav>
+</aside>
+<section class="content-adm p-3" id="content">
+    <div id="calendar" class="calendar shadow"></div>
+</section>
+<!-- Modal de cadastro-->
+<div class="modal fade" id="cadastrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header text-center align-items-center">
+                <h4 class="modal-title font-weight-bold text-secondary">Agendar evento</h4>
+                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/register_event" method="post" id="addevent" enctype="multipart/form-data">
+                <div class="modal-body py-4">
+                    <div class="card card-body border-0 pt-0">
+                        <div class="label-float">
+                            <input type="text" name="cpf" class="form-custom form-control mt-2" size="60" maxlength="14" id="cpf"  placeholder="CPF" required>
+                            <label>CPF</label>
+                            <div class="invalid-feedback" id="invalid">
+                                CPF inválido!
+                            </div>
+                        </div>
+                        <label class="mt-4 mb-0 text-secondary">Local</label>
+                        <select class="form-custom form-control m-0 p-0" name="titulo_evento" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="Salão de festas">Salão de festas</option>
+                            <option value="Churrasqueira">Churrasqueira</option>
+                        </select>
+                        <div class="label-float mt-4">
+                            <input type="datetime-local" name="inicio_evento" class="form-custom form-control mt-2" size="60" id="inicio_evento" onkeypress="DataHora(event, this)" placeholder="Início do evento" required>
+                            <label>Início do evento</label>
+                        </div>
+                        <div class="label-float mt-4">
+                            <input type="datetime-local" name="fim_evento" class="form-custom form-control mt-2" size="60" id="fim_evento" onkeypress="DataHora(event, this)" placeholder="Fim do evento" required>
+                            <label>Fim do evento</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-register w-100 text-light" onclick="return valida()">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    
+<script src='lib/fullcalendar/core/main.min.js'></script>
+<script src='lib/fullcalendar/core/locales/pt-br.js'></script>
+<script src='lib/fullcalendar/daygrid/main.min.js'></script>
+<script src='lib/fullcalendar/interaction/main.min.js'></script>
+<script src='lib/fullcalendar/list/main.min.js'></script>
+<script src='lib/fullcalendar/timegrid/main.min.js'></script>
+<script src="js/calendar.js"></script>
+
+

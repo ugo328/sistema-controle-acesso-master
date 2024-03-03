@@ -1,0 +1,229 @@
+<header id="header" class="header d-flex align-items-center justify-content-between position-fixed">
+    <div class="button ml-3 text-center" onclick="sidebarUser()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <a href="leisure_areas" class="btn btn-dark text-white ml-auto mr-1" title="Consultar eventos agendados">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    </a>
+    <button class="btn btn-light btn-user border-0 mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="text-dark">
+            Olá,
+        </span>
+        <span class="text-secondary mr-1">
+            <?= $_SESSION['nome'] ?>
+        </span>
+        <img width="35" height="35" src="img/users/<?= $_SESSION['imagem_usuario'] ?>">
+    </button>
+    <div class="dropdown-menu drop" aria-labelledby="dropdownMenuButton">
+        <a href="/my_profile">
+            <i class="fas fa-user-alt"></i>
+            <span class="ml-2">
+                Meu Perfil
+            </span>
+        </a>
+        <hr class="m-0">
+        <a href="/sign_out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="ml-2">
+                Sair
+            </span>
+        </a>
+    </div>
+</header>
+<div class="container-fluid dashboard-gradient menu-user" id="menu-user" style="margin-left: -100%;">
+    <div class="row dashboard-gradient">
+        <a href="/visitors" class="col-md-6 bg-1 text-center">
+            <h1 class="text-white"><i class="fas fa-walking px-2"></i>Visitantes</h1>
+        </a>
+        <a href="/service_providers" class="col-md-6 bg-2 text-center">
+            <h1 class="text-white"><i class="fas fa-toolbox px-2"></i>Prestadores de serviços</h1>
+        </a>
+    </div>
+    <div class="row dashboard-gradient">
+        <a href="/orders" class="col-md-6 bg-3 text-center">
+            <h1 class="text-white"><i class="fas fa-dolly px-2"></i>Encomendas</h1>
+        </a>
+        <a href="/residents" class="col-md-6 bg-4 text-center">
+            <h1 class="text-white"><i class="fas fa-building px-2"></i>Moradores</h1>
+        </a>
+    </div>
+</div>
+<section class="content-user p-3" id="">
+    <ol class="breadcrumb mb-4 bg-dark justify-content-between">
+        <li class="breadcrumb-item active text-light">
+            <h4 class="m-0"><i class="fas fa-dolly mr-3 ml-2" style="font-size:28px"></i>Encomendas</h4>
+        </li>
+        <button class="btn bg-transparent btn-exports px-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis-v text-white"></i>
+        </button>
+        <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
+            <h6 class="p-2">Exportar</h6>
+            <a type="button" data-toggle="modal" data-target="#export-modal">
+                <i class="far fa-file-excel"></i>
+                <span class="ml-1">Para Excel</span>
+            </a>
+        </div>
+    </ol>
+    <div class="card mb-4 border-0 shadow">
+        <div class="card-header text-center add" data-toggle="modal" data-target="#form-modal">
+            <h5 class="m-0"><i class="fas fa-archive mr-1"></i>Cadastrar Encomenda</h5>
+        </div>
+        <div class="card-body table-responsive pt-1">
+            <table class="table-bordered table-hover mb-0 display responsive nowrap" style="width:100%" id="dataTable">
+                <thead class="text-center card-header text-dark">
+                    <tr>
+                        <th>Empresa</th>
+                        <th>Apartamento</th>
+                        <th>Bloco</th>
+                        <th>Data de entrega</th>
+                        <th>Status de recebimento</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <?php foreach ($this->view->encomendas as $e) { ?>
+                        <tr>
+                            <td><?= $e['empresa'] ?></td>
+                            <td><?= $e['apartamento'] ?></td>
+                            <td><?= $e['bloco'] ?></td>
+                            <td><?= date('d/m/Y H:i', strtotime($e['data_entrega'])) ?></td>
+                            <td><?= $e['status_entrega'] ?></td>
+                            <th>
+                                <?php if($e['status_entrega'] == 'Processando') { ?>
+                                    <form action="/confirm_receipt" method="post" class="d-inline-block">
+                                        <input type="hidden" name="id_encomenda" value="<?=$e['id_encomenda']?>">
+                                        <abbr title="Confirmar recebimento">
+                                            <button type="submit" class="btn btn-warning btn-action">
+                                                <i class="fas fa-user-check text-white"></i>
+                                            </button>
+                                        </abbr>
+                                    </form>    
+                                <?php } ?>   
+                                <form action="/edit_order" method="post" class="d-inline-block">
+                                    <input type="hidden" name="id_encomenda" value="<?= $e['id_encomenda'] ?>">
+                                    <input type="hidden" name="empresa" value="<?= $e['empresa'] ?>">
+                                    <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
+                                    <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
+                                    <input type="hidden" name="status_entrega" value="<?= $e['status_entrega'] ?>">
+                                    <abbr title="Editar registro">
+                                        <button type="submit" class="btn btn-info btn-action">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </abbr>
+                                </form>
+                                <form action="/remove_order" method="post" class="d-inline-block">
+                                    <input type="hidden" name="id_encomenda" value="<?= $e['id_encomenda'] ?>">
+                                    <input type="hidden" name="empresa" value="<?= $e['empresa'] ?>">
+                                    <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
+                                    <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
+                                    <input type="hidden" name="data_entrega" value="<?= $e['data_entrega'] ?>">
+                                    <input type="hidden" name="status_entrega" value="<?= $e['status_entrega'] ?>">
+                                    <abbr title="Excluir registro">
+                                        <button type="submit" class="btn btn-danger btn-action">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </abbr>
+                                </form>
+                            </th>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- Modal de cadastro-->
+<div class="modal fade " id="form-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header text-center align-items-center">
+                <h4 class="modal-title font-weight-bold text-secondary">Cadastrar Encomenda</h4>
+                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/register_order" method="post">
+                <div class="modal-body py-4">
+                    <div class="card card-body border-0 pt-0">
+                        <div class="label-float">
+                            <input type="text" name="empresa" class="form-custom form-control mt-2" size="60" placeholder="Empresa" maxlength="60" required>
+                            <label>Empresa</label>
+                        </div>
+                        <div class="label-float mt-4">
+                            <input type="text" name="apartamento" class="form-custom form-control mt-2" size="60" placeholder="Apartamento" maxlength="5" required>
+                            <label>Apartamento</label>
+                        </div>
+                        <label class="mt-4 mb-0 text-secondary">Bloco</label>
+                        <select class="form-custom form-control m-0 p-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-register w-100 text-light">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal de exportação-->
+<div class="modal fade" id="export-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header text-center align-items-center">
+                <h4 class="modal-title font-weight-bold text-secondary">Exportação de dados</h4>
+                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/export_orders" method="post">
+                <div class="modal-body py-4">
+                    <div class="card card-body border-0 pt-0">
+                        <label id="label-periodo-export" class="mt-2 mb-0 text-secondary">Período</label>
+                        <select id="select-periodo-export" name="periodo" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="Todo o período">Todo o período</option>
+                            <option value="Personalizado">Personalizado</option>
+                        </select>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div id="label-data-inicio" class="label-float mt-4 mr-2">
+                                <input type="date" id="input-data-inicio" name="data-inicio" class="form-custom form-control mt-2" maxlength="10" size="60" placeholder="Data inicial">
+                                <label>Data inicial</label>
+                            </div>
+                            <div id="label-data-fim" class="label-float mt-4 ml-2">
+                                <input type="date" id="input-data-fim" name="data-fim" class="form-custom form-control mt-2" maxlength="10" size="60" placeholder="Data final">
+                                <label>Data final</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-register text-white w-100">Exportar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="lib/datatables/js/query-3.5.1.js"></script>
+<script>
+    // Exportação de dados
+    $('#label-data-inicio').hide();
+    $('#input-data-inicio').hide();
+    $('#label-data-fim').hide();
+    $('#input-data-fim').hide();
+
+    $("#select-periodo-export").change(function() {
+        if (this.value == "Todo o período") {
+            $('#label-data-inicio').hide();
+            $('#input-data-inicio').hide();
+            $('#label-data-fim').hide();
+            $('#input-data-fim').hide();
+        } else if (this.value == "Personalizado") {
+            $('#label-data-inicio').show();
+            $('#input-data-inicio').show();
+            $('#label-data-fim').show();
+            $('#input-data-fim').show();
+        }
+    });
+</script>
