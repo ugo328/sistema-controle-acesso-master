@@ -65,13 +65,15 @@ CREATE TABLE visitantes_cadastrados (
 CREATE TABLE visitantes (
     id_visitante INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(60),
-    cpf_rg VARCHAR(14),
+    cpf VARCHAR(14),
+    rg VARCHAR(14),
     uf VARCHAR(2),
     apartamento VARCHAR(5) NOT NULL DEFAULT 'N/A',
-    bloco CHAR(10) DEFAULT 'Sem bloco',
+    bloco CHAR(60) DEFAULT 'N/A',
     observacao TEXT,
     data_entrada DATETIME DEFAULT CURRENT_TIMESTAMP,
     data_saida DATETIME,
+    caminho_foto VARCHAR(255) DEFAULT 'caminho/para/foto/padrao.png',
     fk_id_visitante INT,
     FOREIGN KEY (fk_id_visitante) REFERENCES visitantes_cadastrados(id_visitante) ON DELETE CASCADE
 );

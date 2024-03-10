@@ -1,6 +1,9 @@
 <header id="header" class="header-adm d-flex align-items-center justify-content-between">
     <div class="d-xl-block d-none button ml-3 text-center" onclick="sidebarAdm()">
         <i class="fas fa-bars"></i>
+<link rel="stylesheet" type="text/css" href="public/css/estilos.css">
+
+
     </div>
     <div class="d-xl-none d-block button ml-3 text-center" onclick="sidebarSecretAdm()">
         <i class="fas fa-bars"></i>
@@ -223,6 +226,8 @@
                                                 </button>
                                             </abbr>
                                         </form>
+
+
                                         <form action="/remove_visitor_entry" method="post" class="d-inline-block">
                                             <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
                                             <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
@@ -244,6 +249,8 @@
                         </tbody>
                     </table>
                 </div>
+
+
                 <div class="tab-pane fade" id="cadastros" role="tabpanel" aria-labelledby="cadastros-tab">
                     <table class="table-bordered table-hover mb-0 display responsive nowrap" style="width:100%" id="dataTableCad" role="tabpanel" aria-labelledby="dataTable-tab">
                         <thead class="text-center card-header text-dark">
@@ -254,6 +261,8 @@
                                 <th>Ações</th>
                             </tr>
                         </thead>
+
+
                         <tbody class="text-center">
                             <?php foreach ($this->view->visitantes_cadastrados as $e) { ?>
                                 <tr>
@@ -302,6 +311,7 @@
     </div>
 </section>
 
+
 <!-- Modal de cadastro -->
 <div class="modal fade" id="cad-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -312,7 +322,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="register_visitor" method="post">
+            <form action="register_visitor" method="post" enctype="multipart/form-data">
                 <div class="modal-body py-4">
                     <div class="card card-body border-0 pt-0">
                         <div class="label-float">
@@ -333,38 +343,14 @@
                         </div>
                         <label id="label-uf-cadastro" class="mt-4 mb-0 text-secondary">UF</label>
                         <select id="select-uf-cadastro" name="uf" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
-                            <option value="SP">SP</option>
-                            <option value="AC">AC</option>
-                            <option value="AL">AL</option>
-                            <option value="AM">AM</option>
-                            <option value="AP">AP</option>
-                            <option value="BA">BA</option>
-                            <option value="CE">CE</option>
-                            <option value="DF">DF</option>
-                            <option value="ES">ES</option>
-                            <option value="GO">GO</option>
-                            <option value="MA">MA</option>
-                            <option value="MG">MG</option>
-                            <option value="MS">MS</option>
-                            <option value="MT">MT</option>
-                            <option value="PA">PA</option>
-                            <option value="PB">PB</option>
-                            <option value="PI">PI</option>
-                            <option value="PE">PE</option>
-                            <option value="PR">PR</option>
-                            <option value="RJ">RJ</option>
-                            <option value="RN">RN</option>
-                            <option value="RO">RO</option>
-                            <option value="RR">RR</option>
-                            <option value="RS">RS</option>
-                            <option value="SC">SC</option>
-                            <option value="SE">SE</option>
-                            <option value="TO">TO</option>
+                            <!-- Opções de UF aqui -->
                         </select>
                         <div class="label-float mt-4" id="input-rg-cadastro">
                             <input type="text" id="cad-rg" name="rg" class="form-custom form-control mt-2" maxlength="14" size="60" placeholder="RG">
                             <label>RG</label>
                         </div>
+                        <label for="foto" class="mt-4 mb-0 text-secondary">Foto do Visitante:</label>
+                        <input type="file" name="foto" id="foto" accept="image/*">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -374,6 +360,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!-- Modal de registro de entrada-->
 <div class="modal fade" id="form-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
@@ -453,8 +441,7 @@
 
 
 
-
-<!-- Modal de visualização-->
+<!-- Modal de visualização -->
 <div class="modal fade" id="view-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content border-0">
@@ -474,6 +461,7 @@
                             <th>Apartamento</th>
                             <th>Bloco</th>
                             <th>Entrada</th>
+                            <th>Foto</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -486,6 +474,10 @@
                                 <td><?= $e['apartamento'] ?></td>
                                 <td><?= $e['bloco'] ?></td>
                                 <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>
+                                <!-- Exibir a foto do visitante -->
+                                <td>
+<img src="<?= $e['path'] ?>" alt="Foto do Visitante" width="100">                                </td>
+                                <!-- Fim da coluna de foto -->
                                 <th>
                                     <form action="/register_exit_visitor" method="post" class="d-inline-block">
                                         <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
@@ -505,6 +497,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Modal de exportação-->
 <div class="modal fade" id="export-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
@@ -628,6 +621,22 @@
             $('#input-data-inicio').show();
             $('#label-data-fim').show();
             $('#input-data-fim').show();
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("foto").addEventListener("change", function(event) {
+        // Verifica se uma foto foi selecionada
+        if (event.target.files.length > 0) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // Atualiza a imagem exibida com a foto selecionada
+                document.getElementById("foto-visitante").src = e.target.result;
+            };
+            // Lê o arquivo como uma URL de dados
+            reader.readAsDataURL(file);
         }
     });
 </script>

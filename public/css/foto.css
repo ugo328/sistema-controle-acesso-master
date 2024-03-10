@@ -1,0 +1,11 @@
+/* Estilos para o contêiner da foto */
+#foto-visitante-container {
+    margin-top: 10px;
+}
+
+/* Estilos para a foto */
+#foto-visitante {
+    max-width: 200px; /* Defina a largura máxima da foto */
+    max-height: 200px; /* Defina a altura máxima da foto */
+    border: 1px solid #ccc; /* Adicione uma borda à foto */
+}
