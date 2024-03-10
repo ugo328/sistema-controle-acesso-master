@@ -73,7 +73,7 @@ CREATE TABLE visitantes (
     observacao TEXT,
     data_entrada DATETIME DEFAULT CURRENT_TIMESTAMP,
     data_saida DATETIME,
-    caminho_foto VARCHAR(255) DEFAULT 'caminho/para/foto/padrao.png',
+    nome_imagem VARCHAR(255), -- Novo campo para armazenar o nome da imagem
     fk_id_visitante INT,
     FOREIGN KEY (fk_id_visitante) REFERENCES visitantes_cadastrados(id_visitante) ON DELETE CASCADE
 );
